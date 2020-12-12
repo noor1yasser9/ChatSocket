@@ -1,5 +1,6 @@
 package com.nurbk.ps.demochat.ui.fragment
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -40,7 +41,6 @@ class ListUserFragment : Fragment() {
 
     private var mSocket: Socket? = null
     private var userString: String = ""
-    private var isDataShow = true
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -49,31 +49,31 @@ class ListUserFragment : Fragment() {
     ): View {
         mBinding = FragmentListBinding.inflate(layoutInflater, container, false)
             .apply { executePendingBindings() }
-        userString = ConfigUser.getInstance(requireContext())!!.getPreferences()!!
-            .getString(DATA_USER_NAME, "")!!
-        user = try {
-            Gson().fromJson(userString, User::class.java)
-        } catch (e: Exception) {
-            User()
-        }
-        mSocket = SocketManager.getInstance(requireContext())!!.getSocket()
-        mSocket!!.on(GET_ALL_USER, onUserList)
 
+        mSocket!!.on(GET_ALL_USER, onUserList)
         return mBinding.root
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        mSocket = SocketManager.getInstance(requireContext())!!.getSocket()
+
+        userString = ConfigUser.getInstance(requireContext())!!.getPreferences()!!
+            .getString(DATA_USER_NAME, "")!!
+        user = Gson().fromJson(userString, User::class.java)
+
+
+    }
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        isDataShow = savedInstanceState?.getBoolean(IS_CONNECTING) ?: true
-        if (isDataShow) {
-            mSocket!!.emit(GET_ALL_USER, true)
-            mSocket!!.emit(UPDATE_DATA, JSONObject().apply {
-                put(User.ID, user.id)
-                put(User.IS_ONLINE, true)
-            })
-        }
+
 
         setHasOptionsMenu(false)
         mBinding.rcDataUser.apply {
@@ -121,9 +121,6 @@ class ListUserFragment : Fragment() {
         }
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putBoolean(IS_CONNECTING, false)
-    }
+
 
 }

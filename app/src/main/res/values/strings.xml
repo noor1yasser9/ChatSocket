@@ -9,4 +9,14 @@
     <string name="log_in">Log In</string>
     <string name="password2">Confirm Password</string>
     <string name="add_group">Add Group</string>
+    <string name="log_out">Log Out</string>
+    <string name="edit_password">Edit Password</string>
+    <string name="name">Name</string>
+    <string name="email">Email</string>
+    <string name="errorRequired">This field is required</string>
+    <string name="errorImage">Image is required</string>
+    <string name="errorPassword">Password does not match</string>
+    <string name="errorEmail">Email is error</string>
+    <string name="errorPasswordShort">The password is short</string>
+    <string name="errorNameShort">The Name is short</string>
 </resources>

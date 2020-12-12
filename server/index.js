@@ -43,7 +43,7 @@ io.on('connection', function(socket){
   });
   socket.on('SingUp', function(id,User){
      for (let i = 0; i < userList.length; i++) { 
-        if (userList[i]['username']==User['username']) {
+        if (userList[i]['email']==User['email']) {
            io.emit('SingUp', id,false);
             break;
         }else if(i==userList.length-1){
@@ -66,7 +66,7 @@ io.on('connection', function(socket){
 
     socket.on('SingIn', function(id,User){
       for (let i = 0; i < userList.length; i++) { 
-        if (userList[i]['username']==User['username'] && userList[i]['password']==User['password'] ) {
+        if (userList[i]['email']==User['email'] && userList[i]['password']==User['password'] ) {
            io.emit('SingIn', id,userList[i]);
             break;
         }
@@ -78,6 +78,18 @@ io.on('connection', function(socket){
       for (let i = 0; i < userList.length; i++) { 
         if (userList[i]['id']==User['id']) {
           userList[i]['isOnline']=User['isOnline'];
+           // io.emit('dataUpdate',userList[i]);
+           io.emit('get all user', userList);
+            break;
+        }
+      }
+  });
+
+   socket.on('dataProfile', function(User){
+      console.log("dataUpdate"+User)
+      for (let i = 0; i < userList.length; i++) { 
+        if (userList[i]['id']==User['id']) {
+          userList[i]['image']=User['image'];
            // io.emit('dataUpdate',userList[i]);
            io.emit('get all user', userList);
             break;

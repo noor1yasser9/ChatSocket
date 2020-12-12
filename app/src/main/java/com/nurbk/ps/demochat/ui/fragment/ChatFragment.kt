@@ -3,20 +3,17 @@ package com.nurbk.ps.demochat.ui.fragment
 import android.Manifest
 import android.app.Activity
 import android.content.Intent
-import android.icu.text.SimpleDateFormat
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.github.nkzawa.emitter.Emitter
-import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
 import com.nurbk.ps.demochat.adapter.MessageAdapter
 import com.nurbk.ps.demochat.databinding.FragmentChatBinding
@@ -76,7 +73,7 @@ class ChatFragment : Fragment() {
         type = bundle.getString(TYPE_CHAT)!!
         if (type == USER_FRAGMENT) {
             userRecipient = bundle.getString(USER_ID)!!
-            userId.put(Message.USERNAME, "${user.username} $CONNECTED")
+            userId.put(Message.USERNAME, "${user.email} $CONNECTED")
             if (isConnecting)
                 mSocket!!
                     .emit(
@@ -86,7 +83,7 @@ class ChatFragment : Fragment() {
                     )
         } else {
             group = bundle.getParcelable(USER_RECIPIENT)!!
-            userId.put(Message.USERNAME, "${user.username} $CONNECTED")
+            userId.put(Message.USERNAME, "${user.email} $CONNECTED")
             if (isConnecting)
                 mSocket!!.emit(CHAT_MESSAGE, group.id, userId)
         }
@@ -126,7 +123,7 @@ class ChatFragment : Fragment() {
         onTypeButtonEnable()
 
 
-
+        setHasOptionsMenu(false)
 
         viewModelChat.getAllChat(
             if (type == USER_FRAGMENT)
@@ -255,7 +252,7 @@ class ChatFragment : Fragment() {
     ) {
         val json = JSONObject()
         json.put(Message.TYPING, typing)
-        json.put(Message.USERNAME, user.username)
+        json.put(Message.USERNAME, user.name)
         if (!TextUtils.isEmpty(message))
             json.put(Message.MESSAGE, message)
         json.put(Message.IMAGE_USER, user.image)

@@ -6,7 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
-import android.util.Log
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,8 +15,9 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.github.nkzawa.emitter.Emitter
 import com.github.nkzawa.socketio.client.Socket
+import com.google.android.material.snackbar.Snackbar
+import com.nurbk.ps.demochat.R
 import com.nurbk.ps.demochat.databinding.FragmentAuthSingUpBinding
-import com.nurbk.ps.demochat.model.Message
 import com.nurbk.ps.demochat.model.User
 import com.nurbk.ps.demochat.network.SocketManager
 import com.nurbk.ps.demochat.other.*
@@ -70,41 +71,72 @@ class SingUpAuthFragment : Fragment() {
         }
 
         mBinding.btnSave.setOnClickListener {
+            val name = mBinding.txtName.text.toString()
             val username = mBinding.txtUsername.text.toString()
             val password = mBinding.txtPassword.text.toString()
             val password2 = mBinding.txtPassword2.text.toString()
             when {
+                TextUtils.isEmpty(name) -> {
+                    mBinding.txtName.error = getString(R.string.errorRequired)
+                    mBinding.txtName.requestFocus()
+                    return@setOnClickListener
+                }
+                name.length < 8 -> {
+                    mBinding.txtName.error = getString(R.string.errorNameShort)
+                    mBinding.txtName.requestFocus()
+                    return@setOnClickListener
+                }
                 TextUtils.isEmpty(username) -> {
+                    mBinding.txtUsername.error = getString(R.string.errorRequired)
+                    mBinding.txtUsername.requestFocus()
+                    return@setOnClickListener
+                }
+                !Patterns.EMAIL_ADDRESS.matcher(username).matches() -> {
+                    mBinding.txtUsername.error = getString(R.string.email)
+                    mBinding.txtUsername.requestFocus()
                     return@setOnClickListener
                 }
                 TextUtils.isEmpty(password) -> {
+                    mBinding.txtPassword.error = getString(R.string.errorRequired)
+                    mBinding.txtPassword.requestFocus()
+                    return@setOnClickListener
+                }
+                password.length < 8 -> {
+                    mBinding.txtPassword.error = getString(R.string.errorPasswordShort)
+                    mBinding.txtPassword.requestFocus()
                     return@setOnClickListener
                 }
                 TextUtils.isEmpty(password2) -> {
+                    mBinding.txtPassword2.error = getString(R.string.errorRequired)
+                    mBinding.txtPassword2.requestFocus()
                     return@setOnClickListener
                 }
                 password != password2 -> {
+                    mBinding.txtPassword2.error = getString(R.string.errorPassword)
+                    mBinding.txtPassword2.requestFocus()
                     return@setOnClickListener
                 }
                 TextUtils.isEmpty(imageUser) -> {
+                    Snackbar.make(
+                        requireView(),
+                        getString(R.string.errorImage),
+                        Snackbar.LENGTH_LONG
+                    ).show()
                     return@setOnClickListener
                 }
                 else -> {
                     configUser.getEditor()!!
                         .putString(ID_DEVi, UUID.randomUUID().toString()).apply()
-                    id = configUser
-                        .getPreferences()!!.getString(ID_DEVi, "")!!
+                    id = configUser.getPreferences()!!.getString(ID_DEVi, "")!!
 
                     val user = JSONObject()
-                    user.put(User.USERNAME, username)
+                    user.put(User.NAME, name)
+                    user.put(User.EMAIL, username)
                     user.put(User.PASSWORD, password)
                     user.put(User.ID, UUID.randomUUID().toString())
                     user.put(User.IMAGE, imageUser)
                     user.put(User.IS_ONLINE, false)
-
-                    mSocket!!.emit(
-                        SING_UP, id, user
-                    )
+                    mSocket!!.emit(SING_UP, id, user)
                 }
             }
         }
@@ -136,8 +168,8 @@ class SingUpAuthFragment : Fragment() {
                     if (args[1].toString().toBoolean())
                         findNavController().navigateUp()
                     else {
-                        Toast.makeText(requireContext(), "User Theer is Exiss", Toast.LENGTH_LONG)
-                            .show()
+                        mBinding.txtUsername.error = getString(R.string.errorEmail)
+                        mBinding.txtUsername.requestFocus()
                     }
                 }
             } catch (e: Exception) {

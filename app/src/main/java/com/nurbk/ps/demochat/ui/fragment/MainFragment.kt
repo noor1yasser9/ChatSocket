@@ -1,12 +1,13 @@
 package com.nurbk.ps.demochat.ui.fragment
 
 
+import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavOptions
 import androidx.viewpager2.widget.ViewPager2
 import com.github.nkzawa.socketio.client.Socket
 import com.google.android.material.tabs.TabLayout
@@ -40,23 +41,32 @@ class MainFragment : Fragment() {
         return mBinding.root
     }
 
+    private var isDataShow = true
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (userString != null)
-            user = Gson().fromJson(userString, User::class.java)
+        user = Gson().fromJson(userString, User::class.java)
+
         mSocket = SocketManager.getInstance(requireContext())!!.getSocket()
-
-
+        isDataShow = savedInstanceState?.getBoolean(IS_CONNECTING) ?: true
 
 
         initViewPage()
     }
 
 
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
+
+    }
+
+
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
+        outState.putBoolean(IS_CONNECTING, false)
     }
+
 
     private fun initViewPage() {
         val viewPagerAdapter = ViewPagerAdapter(requireActivity())
@@ -71,14 +81,14 @@ class MainFragment : Fragment() {
                 }
             })
         }
-
+        setHasOptionsMenu(false)
         TabLayoutMediator(
             mBinding.tabLayout, mBinding.pagerHome
         ) { tab: TabLayout.Tab, position: Int ->
             when (position) {
                 0 -> {
                     tab.text = USER_FRAGMENT
-                    setHasOptionsMenu(false)
+
                 }
                 1 -> {
                     tab.text = GROUP_FRAGMENT
@@ -89,13 +99,5 @@ class MainFragment : Fragment() {
     }
 
 
-    override fun onDestroy() {
-        if (mSocket != null)
-            mSocket!!.emit(UPDATE_DATA, JSONObject().apply {
-                put(User.ID, user.id)
-                put(User.IS_ONLINE, false)
-            })
-        super.onDestroy()
-    }
 
 }

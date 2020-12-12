@@ -21,7 +21,7 @@ abstract class BaseUserAdapter(
     protected val diffCallback = object : DiffUtil.ItemCallback<Any>() {
         override fun areItemsTheSame(oldItem: Any, newItem: Any): Boolean {
             if (oldItem is User && newItem is User)
-                return oldItem.id == newItem.id && oldItem.isOnline
+                return oldItem.id == newItem.id
             else if (oldItem is Group && newItem is Group) {
                 return oldItem.id == newItem.id
             }

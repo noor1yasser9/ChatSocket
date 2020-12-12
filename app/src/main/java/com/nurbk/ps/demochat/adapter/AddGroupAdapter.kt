@@ -23,7 +23,7 @@ class AddGroupAdapter :
 
         holder.itemView.apply {
             image.setImageBitmap(decodeImage(user.image))
-            usernaem.text = user.username
+            usernaem.text = user.email
             isOnline.setCardBackgroundColor(
                 ResourcesCompat.getColor(
                     context.resources,

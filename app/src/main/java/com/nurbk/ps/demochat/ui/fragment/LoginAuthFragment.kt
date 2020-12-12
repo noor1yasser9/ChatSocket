@@ -2,17 +2,17 @@ package com.nurbk.ps.demochat.ui.fragment
 
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
+import android.util.Patterns
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavOptions
-import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import com.github.nkzawa.emitter.Emitter
 import com.github.nkzawa.socketio.client.Socket
+import com.google.gson.Gson
 import com.nurbk.ps.demochat.R
 import com.nurbk.ps.demochat.databinding.FragmentAuthLoginBinding
 import com.nurbk.ps.demochat.model.User
@@ -80,14 +80,39 @@ class LoginAuthFragment : Fragment() {
         })
 
         mBinding.btnSave.setOnClickListener {
-            val userId = JSONObject()
-            userId.put(User.USERNAME, mBinding.txtUsername.text.toString())
-            userId.put(User.PASSWORD, mBinding.txtPassword.text.toString())
+            val username = mBinding.txtUsername.text.toString()
+            val password = mBinding.txtPassword.text.toString()
 
-            mSocket!!.emit(
-                SING_IN, id,
-                userId
-            )
+            when {
+                TextUtils.isEmpty(username) -> {
+                    mBinding.txtUsername.error = getString(R.string.errorRequired)
+                    mBinding.txtUsername.requestFocus()
+                    return@setOnClickListener
+                }
+                !Patterns.EMAIL_ADDRESS.matcher(username).matches() -> {
+                    mBinding.txtUsername.error = getString(R.string.email)
+                    mBinding.txtUsername.requestFocus()
+                    return@setOnClickListener
+                }
+                TextUtils.isEmpty(password) -> {
+                    mBinding.txtPassword.error = getString(R.string.errorRequired)
+                    mBinding.txtPassword.requestFocus()
+                    return@setOnClickListener
+                }
+                password.length < 8 -> {
+                    mBinding.txtPassword.error = getString(R.string.errorPasswordShort)
+                    mBinding.txtPassword.requestFocus()
+                    return@setOnClickListener
+                }
+                else -> {
+                    val userId = JSONObject()
+                    userId.put(User.EMAIL, username)
+                    userId.put(User.PASSWORD, password)
+                    mSocket!!.emit(SING_IN, id, userId)
+                }
+            }
+
+
         }
 
 
@@ -113,7 +138,15 @@ class LoginAuthFragment : Fragment() {
                         putBoolean(IS_LOGIN, true)
                         apply()
                     }
+                    val user = Gson().fromJson(args[1].toString(), User::class.java)
                     findNavController().navigate(R.id.action_loginAuthFragment_to_mainFragment)
+                        .also {
+                            mSocket!!.emit(GET_ALL_USER, true)
+                            mSocket!!.emit(UPDATE_DATA, JSONObject().apply {
+                                put(User.ID, user.id)
+                                put(User.IS_ONLINE, true)
+                            })
+                        }
                 }
             } catch (e: Exception) {
                 e.printStackTrace()

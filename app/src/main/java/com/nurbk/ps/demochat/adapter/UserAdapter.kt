@@ -15,7 +15,7 @@ class UserAdapter :
         val user = dataList[position] as User
         holder.itemView.apply {
             image.setImageBitmap(decodeImage(user.image))
-            usernaem.text = user.username
+            usernaem.text = user.name
             isOnline.setCardBackgroundColor(
                 ResourcesCompat.getColor(
                     context.resources,

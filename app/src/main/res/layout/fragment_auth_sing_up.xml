@@ -19,7 +19,7 @@
             android:padding="16dp"
             android:text="@string/sing_up"
             android:textColor="@color/colorAccent"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -28,9 +28,9 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:layout_marginTop="32dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="8dp"
             app:cardCornerRadius="100dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -45,11 +45,11 @@
         </androidx.cardview.widget.CardView>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/txtLayoutUsername"
+            android:id="@+id/txtLayoutName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
+            android:layout_marginTop="24dp"
             app:boxStrokeColor="@color/box_input_text_color"
             app:hintTextColor="@color/box_input_text_color"
             app:layout_constraintEnd_toEndOf="parent"
@@ -58,10 +58,36 @@
             app:layout_constraintWidth_percent="0.8">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txtName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/name"
+                android:maxLength="30"
+                android:imeOptions="actionSend"
+                android:maxLines="1"
+                android:singleLine="true"
+                android:textColor="@color/white" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/txtLayoutUsername"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            app:boxStrokeColor="@color/box_input_text_color"
+            app:hintTextColor="@color/box_input_text_color"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txtLayoutName"
+            app:layout_constraintWidth_percent="0.8">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txtUsername"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/username"
+                android:hint="@string/email"
+                android:maxLength="50"
                 android:imeOptions="actionSend"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -88,6 +114,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:hint="@string/password"
+                android:maxLength="30"
                 android:imeOptions="actionSend"
                 android:inputType="textPassword"
                 android:maxLines="1"
@@ -116,6 +143,7 @@
                 android:layout_height="match_parent"
                 android:hint="@string/password2"
                 android:imeOptions="actionSend"
+                android:maxLength="30"
                 android:inputType="textPassword"
                 android:maxLines="1"
                 android:singleLine="true"
@@ -141,7 +169,7 @@
             android:id="@+id/txtView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="48dp"
+            android:layout_marginTop="32dp"
             android:text="@string/you_do_not_have_an_account"
             android:textColor="@color/grey"
             app:layout_constraintBottom_toBottomOf="parent"
