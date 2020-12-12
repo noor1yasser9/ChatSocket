@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_main.xml"
+
+    app:startDestination="@id/loginAuthFragment">
+
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.nurbk.ps.demochat.ui.fragment.ChatFragment"
+        android:label="ChatFragment" />
+    <fragment
+        android:id="@+id/loginAuthFragment"
+        android:name="com.nurbk.ps.demochat.ui.fragment.LoginAuthFragment"
+        android:label="AuthFragment">
+
+        <action
+            android:id="@+id/action_authFragment_to_singUpAuthFragment"
+            app:destination="@id/singUpAuthFragment" />
+        <action
+            android:id="@+id/action_loginAuthFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_main.xml"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/singUpAuthFragment"
+        android:name="com.nurbk.ps.demochat.ui.fragment.SingUpAuthFragment"
+        android:label="SingUpAuthFragment" />
+    <fragment
+        android:id="@+id/listUserFragment"
+        android:name="com.nurbk.ps.demochat.ui.fragment.ListUserFragment"
+        android:label="ListUserFragment" />
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.nurbk.ps.demochat.ui.fragment.MainFragment"
+        android:label="MainFragment" />
+    <action
+        android:id="@+id/globalActionToChatFragment"
+        app:destination="@id/chatFragment" />
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.nurbk.ps.demochat.ui.fragment.ProfileFragment"
+        android:label="ProfileFragment" />
+</navigation>

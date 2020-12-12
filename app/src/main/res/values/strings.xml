@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Demo Chat</string>
+    <string name="write_message">Write message..</string>
+    <string name="save">save</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="sing_up">Sing Up</string>
+    <string name="you_do_not_have_an_account">You do not have an account,</string>
+    <string name="log_in">Log In</string>
+    <string name="password2">Confirm Password</string>
+    <string name="add_group">Add Group</string>
+</resources>
