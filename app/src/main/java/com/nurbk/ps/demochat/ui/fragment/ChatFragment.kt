@@ -99,7 +99,7 @@ class ChatFragment : Fragment() {
         mSocket!!.on(CHAT_MESSAGE, onSend)
         mSocket!!.on(ON_TYPING, onTyping)
 
-
+        requireActivity().title = bundle.getString(USER_NAME)
         mBinding.btnSend.setOnClickListener {
             sendMessage()
         }

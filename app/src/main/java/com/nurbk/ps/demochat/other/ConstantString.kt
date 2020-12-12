@@ -15,6 +15,7 @@ const val TYPE_CHAT = "typeChat"
 const val USER_ID = "userId"
 const val IS_CONNECTING = "isConnecting"
 const val IS_LOGIN = "isLogin"
+const val USER_NAME = "USER_NAME"
 
 const val CHAT = "Chat"
 const val REGISTRATION = "Register"

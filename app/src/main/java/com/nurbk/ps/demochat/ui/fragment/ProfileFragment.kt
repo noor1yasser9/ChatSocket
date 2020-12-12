@@ -16,9 +16,10 @@ import com.nurbk.ps.demochat.model.User
 import com.nurbk.ps.demochat.network.SocketManager
 import com.nurbk.ps.demochat.other.*
 import com.nurbk.ps.demochat.ui.activity.MainActivity
+import com.nurbk.ps.demochat.ui.dialog.EditPasswordDialog
 import org.json.JSONObject
 
-class ProfileFragment : Fragment() {
+class ProfileFragment : Fragment(), EditPasswordDialog.OnUpdatePassword {
 
     private lateinit var mBinding: FragmentProfileBinding
     private val userString by lazy {
@@ -27,6 +28,8 @@ class ProfileFragment : Fragment() {
     private lateinit var user: User
     private val json = JSONObject()
     private var mSocket: Socket? = null
+    private val dialogPassword = EditPasswordDialog(this)
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -51,17 +54,23 @@ class ProfileFragment : Fragment() {
         )
         mBinding.txtProfileName.text = user.name
         json.put(User.ID, user.id)
+        json.put(User.NAME, user.name)
         json.put(User.IS_ONLINE, true)
         json.put(User.EMAIL, user.email)
         json.put(User.PASSWORD, user.password)
         json.put(User.IMAGE, user.image)
 
-
+        requireActivity().title="Profile"
 
         mBinding.btnLogOut.setOnClickListener {
             ConfigUser.getInstance(requireContext())!!.getEditor()!!.clear().apply()
             requireActivity().finish()
             startActivity(Intent(requireContext(), MainActivity::class.java))
+        }
+
+        mBinding.btnEditPassword.setOnClickListener {
+            if (!dialogPassword.isAdded)
+                dialogPassword.show(requireActivity().supportFragmentManager, "")
         }
 
         mBinding.cardView.setOnClickListener {
@@ -96,7 +105,6 @@ class ProfileFragment : Fragment() {
 
             json.put(User.IMAGE, imageToBase64(bitmap))
             mSocket!!.emit("dataProfile", json)
-            ConfigUser.getInstance(requireContext())!!.getEditor()!!
 
             ConfigUser.getInstance(requireContext())!!.getEditor()!!.apply {
                 putString(DATA_USER_NAME, json.toString())
@@ -105,4 +113,12 @@ class ProfileFragment : Fragment() {
         }
     }
 
+    override fun onUpdate(password: String) {
+        json.put(User.PASSWORD, password)
+        mSocket!!.emit("dataProfile", json)
+        ConfigUser.getInstance(requireContext())!!.getEditor()!!.apply {
+            putString(DATA_USER_NAME, json.toString())
+            apply()
+        }
+    }
 }

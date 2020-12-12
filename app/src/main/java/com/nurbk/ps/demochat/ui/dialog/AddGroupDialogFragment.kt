@@ -1,4 +1,4 @@
-package com.nurbk.ps.demochat.ui.fragment
+package com.nurbk.ps.demochat.ui.dialog
 
 import android.Manifest
 import android.app.Activity
@@ -6,7 +6,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
 import android.text.TextUtils
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +13,6 @@ import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.nurbk.ps.demochat.R
 import com.nurbk.ps.demochat.adapter.AddGroupAdapter
 import com.nurbk.ps.demochat.databinding.DialogGroupUserBinding
@@ -24,7 +22,6 @@ import com.nurbk.ps.demochat.network.SocketManager
 import com.nurbk.ps.demochat.other.*
 import org.json.JSONArray
 import org.json.JSONObject
-import java.lang.reflect.Type
 import java.util.*
 import kotlin.collections.ArrayList
 

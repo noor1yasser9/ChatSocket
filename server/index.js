@@ -90,7 +90,11 @@ io.on('connection', function(socket){
       for (let i = 0; i < userList.length; i++) { 
         if (userList[i]['id']==User['id']) {
           userList[i]['image']=User['image'];
-           // io.emit('dataUpdate',userList[i]);
+          userList[i]['name']=User['name'];
+          console.log("ttttttO"+userList[i]['password'])
+          userList[i]['password']=User['password'];
+          console.log("ttttttUsad"+User['password'])
+          console.log("ttttttN"+userList[i]['password'])
            io.emit('get all user', userList);
             break;
         }

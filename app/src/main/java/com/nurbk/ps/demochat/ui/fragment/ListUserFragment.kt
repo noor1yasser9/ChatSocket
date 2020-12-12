@@ -2,13 +2,11 @@ package com.nurbk.ps.demochat.ui.fragment
 
 import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.nkzawa.emitter.Emitter
@@ -21,12 +19,11 @@ import com.nurbk.ps.demochat.databinding.FragmentListBinding
 import com.nurbk.ps.demochat.model.User
 import com.nurbk.ps.demochat.network.SocketManager
 import com.nurbk.ps.demochat.other.*
+import com.nurbk.ps.demochat.ui.dialog.AddGroupDialogFragment
 import com.nurbk.ps.demochat.ui.viewmodel.UsersViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import org.json.JSONObject
-import java.lang.Exception
 import java.lang.reflect.Type
 
 class ListUserFragment : Fragment() {
@@ -97,6 +94,7 @@ class ListUserFragment : Fragment() {
                     Bundle().apply {
                         this.putString(USER_ID, (user as User).id)
                         this.putString(TYPE_CHAT, USER_FRAGMENT)
+                        this.putString(USER_NAME, user.name)
                     }
                 )
         }
@@ -120,7 +118,6 @@ class ListUserFragment : Fragment() {
             viewMode.addListUsers(userList)
         }
     }
-
 
 
 }

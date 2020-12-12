@@ -81,7 +81,7 @@ class SingUpAuthFragment : Fragment() {
                     mBinding.txtName.requestFocus()
                     return@setOnClickListener
                 }
-                name.length < 8 -> {
+                name.length < 3 -> {
                     mBinding.txtName.error = getString(R.string.errorNameShort)
                     mBinding.txtName.requestFocus()
                     return@setOnClickListener

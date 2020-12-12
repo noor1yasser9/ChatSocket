@@ -19,4 +19,7 @@
     <string name="errorEmail">Email is error</string>
     <string name="errorPasswordShort">The password is short</string>
     <string name="errorNameShort">The Name is short</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="new_password">New Password</string>
+    <string name="old_password">Old Password</string>
 </resources>

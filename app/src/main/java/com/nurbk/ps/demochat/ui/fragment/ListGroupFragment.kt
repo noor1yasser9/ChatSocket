@@ -1,7 +1,6 @@
 package com.nurbk.ps.demochat.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -18,6 +17,7 @@ import com.nurbk.ps.demochat.model.Group
 import com.nurbk.ps.demochat.model.User
 import com.nurbk.ps.demochat.network.SocketManager
 import com.nurbk.ps.demochat.other.*
+import com.nurbk.ps.demochat.ui.dialog.AddGroupDialogFragment
 import com.nurbk.ps.demochat.ui.viewmodel.GroupViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -82,10 +82,9 @@ class ListGroupFragment : Fragment() {
                     Bundle().apply {
                         putParcelable(USER_RECIPIENT, user as Group)
                         putString(TYPE_CHAT, GROUP_FRAGMENT)
+                        putString(USER_NAME, user.name)
                     }
-                ).also {
-//                    setHasOptionsMenu(false)
-                }
+                )
         }
 
         viewMode.getAllGroup().observe(viewLifecycleOwner) {
@@ -122,8 +121,6 @@ class ListGroupFragment : Fragment() {
         inflater.inflate(R.menu.menu_group, menu);
         super.onCreateOptionsMenu(menu, inflater)
     }
-
-
 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
