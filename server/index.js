@@ -91,10 +91,7 @@ io.on('connection', function(socket){
         if (userList[i]['id']==User['id']) {
           userList[i]['image']=User['image'];
           userList[i]['name']=User['name'];
-          console.log("ttttttO"+userList[i]['password'])
           userList[i]['password']=User['password'];
-          console.log("ttttttUsad"+User['password'])
-          console.log("ttttttN"+userList[i]['password'])
            io.emit('get all user', userList);
             break;
         }

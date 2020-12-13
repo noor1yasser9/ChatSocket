@@ -65,17 +65,17 @@ class ListGroupFragment : Fragment() {
 
         mSocket = SocketManager.getInstance(requireContext())!!.getSocket()
 
-        requireActivity().title = "All Group"
+        requireActivity().title = ALL_GROUP
 
-        mSocket!!.on("AllGroup", onGroupList)
+        mSocket!!.on(ALL_GROUP2, onGroupList)
 
         isDataShow = savedInstanceState?.getBoolean(IS_CONNECTING) ?: true
 
         if (isDataShow)
-            mSocket!!.emit("AllGroup", true)
+            mSocket!!.emit(ALL_GROUP2, true)
 
 
-        groupAdapter.setItemClickListener { user, b ->
+        groupAdapter.setItemClickListener { user, _ ->
             findNavController()
                 .navigate(
                     R.id.globalActionToChatFragment,
