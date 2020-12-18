@@ -55,12 +55,6 @@ class MainFragment : Fragment() {
     }
 
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-
-    }
-
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
@@ -77,11 +71,16 @@ class MainFragment : Fragment() {
             registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    requireActivity().title = if (position == 0) "All User" else "Group User"
+                    requireActivity().title = if (position == 0){
+                        "All User"
+
+                    } else{
+                        "Group User"
+                    }
                 }
             })
         }
-        setHasOptionsMenu(false)
+
         TabLayoutMediator(
             mBinding.tabLayout, mBinding.pagerHome
         ) { tab: TabLayout.Tab, position: Int ->

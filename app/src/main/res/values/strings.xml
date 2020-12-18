@@ -22,4 +22,6 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="new_password">New Password</string>
     <string name="old_password">Old Password</string>
+    <string name="home">Home</string>
+    <string name="profile">Profile</string>
 </resources>

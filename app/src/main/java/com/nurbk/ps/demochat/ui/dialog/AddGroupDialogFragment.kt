@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.nkzawa.socketio.client.Socket
+import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.nurbk.ps.demochat.R
 import com.nurbk.ps.demochat.adapter.AddGroupAdapter
@@ -106,21 +107,38 @@ class AddGroupDialogFragment private constructor(var data: List<User>) : DialogF
         }
 
         mBinding.btnSave.setOnClickListener {
+            val name = mBinding.txtUsername.text.toString()
+            when {
+                arrayGroup.size <= 1-> {
+                    Snackbar.make(
+                        requireView(),
+                        "There must be at least two people in the group",
+                        Snackbar.LENGTH_LONG
+                    ).show()
+                }
+                TextUtils.isEmpty(name) -> {
+                    mBinding.txtUsername.error = getString(R.string.errorRequired)
+                    mBinding.txtUsername.requestFocus()
+                    return@setOnClickListener
+                }
+                else -> {
+                    val group = JSONObject()
+                    val array = JSONArray()
+                    for (user in arrayGroup) {
+                        array.put(user)
+                    }
+                    group.put(Group.NAME, name)
+                    group.put(Group.USER_GROUP, array)
+                    group.put(Group.ID, UUID.randomUUID().toString())
+                    group.put(Group.IMAGE, imageGroup)
 
-
-            val group = JSONObject()
-            val array = JSONArray()
-            for (user in arrayGroup) {
-                array.put(user)
+                    mSocket!!.emit(
+                        GROUP_FRAGMENT, group
+                    )
+                }
             }
-            group.put(Group.NAME, mBinding.txtUsername.text.toString())
-            group.put(Group.USER_GROUP, array)
-            group.put(Group.ID, UUID.randomUUID().toString())
-            group.put(Group.IMAGE, imageGroup)
 
-            mSocket!!.emit(
-                GROUP_FRAGMENT, group
-            )
+
         }
     }
 

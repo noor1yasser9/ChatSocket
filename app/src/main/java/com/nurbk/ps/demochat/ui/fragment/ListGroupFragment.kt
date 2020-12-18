@@ -1,6 +1,7 @@
 package com.nurbk.ps.demochat.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -54,7 +55,6 @@ class ListGroupFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
 
         user = Gson().fromJson(userString, User::class.java)
 
@@ -65,9 +65,16 @@ class ListGroupFragment : Fragment() {
 
         mSocket = SocketManager.getInstance(requireContext())!!.getSocket()
 
-        requireActivity().title = ALL_GROUP
+//        requireActivity().title = ALL_GROUP
 
         mSocket!!.on(ALL_GROUP2, onGroupList)
+        mBinding.addGroup.apply {
+            setOnClickListener {
+                if (!addGroup!!.isAdded)
+                    addGroup!!.show(requireActivity().supportFragmentManager, "")
+            }
+            show()
+        }
 
         isDataShow = savedInstanceState?.getBoolean(IS_CONNECTING) ?: true
 
@@ -117,26 +124,12 @@ class ListGroupFragment : Fragment() {
     }
 
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_group, menu);
-        super.onCreateOptionsMenu(menu, inflater)
-    }
-
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.createGroup -> {
-                if (!addGroup!!.isAdded)
-                    addGroup!!.show(requireActivity().supportFragmentManager, "")
-            }
-        }
-        return super.onOptionsItemSelected(item)
-    }
 
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putBoolean(IS_CONNECTING, false)
     }
+
 
 }

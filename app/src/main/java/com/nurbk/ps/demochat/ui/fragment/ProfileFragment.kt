@@ -5,12 +5,12 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.provider.MediaStore
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.Log
+import android.view.*
 import androidx.fragment.app.Fragment
 import com.github.nkzawa.socketio.client.Socket
 import com.google.gson.Gson
+import com.nurbk.ps.demochat.R
 import com.nurbk.ps.demochat.databinding.FragmentProfileBinding
 import com.nurbk.ps.demochat.model.User
 import com.nurbk.ps.demochat.network.SocketManager
@@ -48,6 +48,9 @@ class ProfileFragment : Fragment(), EditPasswordDialog.OnUpdatePassword {
         super.onViewCreated(view, savedInstanceState)
 
         user = Gson().fromJson(userString, User::class.java)
+
+
+
 
         mBinding.image.setImageBitmap(
             decodeImage(user.image)
@@ -87,6 +90,8 @@ class ProfileFragment : Fragment(), EditPasswordDialog.OnUpdatePassword {
         }
     }
 
+
+
     private fun selectImage() {
         val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
         intent.type = TYPE_INTENT_IMAGE
@@ -122,4 +127,6 @@ class ProfileFragment : Fragment(), EditPasswordDialog.OnUpdatePassword {
             apply()
         }
     }
+
+
 }
