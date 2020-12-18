@@ -53,6 +53,7 @@ class ProfileFragment : Fragment(), EditPasswordDialog.OnUpdatePassword {
             decodeImage(user.image)
         )
         mBinding.txtProfileName.text = user.name
+        mBinding.emailProfile.text = user.email
         json.put(User.ID, user.id)
         json.put(User.NAME, user.name)
         json.put(User.IS_ONLINE, true)
@@ -60,7 +61,7 @@ class ProfileFragment : Fragment(), EditPasswordDialog.OnUpdatePassword {
         json.put(User.PASSWORD, user.password)
         json.put(User.IMAGE, user.image)
 
-        requireActivity().title="Profile"
+        requireActivity().title = "Profile"
 
         mBinding.btnLogOut.setOnClickListener {
             ConfigUser.getInstance(requireContext())!!.getEditor()!!.clear().apply()

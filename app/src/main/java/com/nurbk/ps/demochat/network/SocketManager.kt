@@ -7,7 +7,7 @@ import com.github.nkzawa.socketio.client.Socket
 class SocketManager private constructor(private var context: Context) {
 
     private var socket: Socket? = null
-    private val BASE_URL = "http://10.0.0.2:5000"
+    private val BASE_URL = "http://10.0.0.1:5000"
 
     companion object {
         var instance: SocketManager? = null
