@@ -16,8 +16,12 @@ This is a simple chat demo for socket.io and Android. You can connect to [https:
 - Node js 
 - Express
 
+<br/> <br/> <br/> 
+
 ![Group 3121](https://user-images.githubusercontent.com/41232970/102915555-b0f5b380-448a-11eb-88f9-8039d41c03ad.png)
 
+
+<br/> <br/> <br/> 
 
 
 Installing the Dependencies
