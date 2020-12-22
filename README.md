@@ -2,6 +2,20 @@
 
 This is a simple chat demo for socket.io and Android. You can connect to [https://socket-io-chat.now.sh](https://socket-io-chat.now.sh) using this app.
 
+# ✨ Features Project Android:
+- 100% Kotlin
+- MVVM architecture
+- Android architecture components
+- Navigation Jetpack
+- Room Database
+- Single activity
+- dataBinding 
+- Coroutines
+
+# ✨ Features Project Servier: 
+- Node js 
+- Express
+
 ![Group 3121](https://user-images.githubusercontent.com/41232970/102915555-b0f5b380-448a-11eb-88f9-8039d41c03ad.png)
 
 
