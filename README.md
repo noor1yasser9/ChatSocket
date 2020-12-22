@@ -5,8 +5,6 @@ This is a simple chat demo for socket.io and Android. You can connect to [https:
 # <a href="https://www.behance.net/mrh610371211" rel="nofollow">
   <img align="left" alt="Noor Yasser | Youtube " width="21px" src="https://user-images.githubusercontent.com/41232970/102919173-0e8cfe80-4491-11eb-9706-cdebd4f610ff.png" style="max-width:200%;"> Socket Android Youtube Tutorial </a>
 
-<br/>
-
 # ✨ Features Project Android:
 - 100% Kotlin
 - MVVM architecture
