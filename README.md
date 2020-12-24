@@ -1,6 +1,6 @@
 # demo_chat_sockit
 
-This is a simple chat demo for socket.io and Android. You can connect to [https://socket-io-chat.now.sh](https://socket-io-chat.now.sh) using this app.
+This is a simple chat demo for socket.io and Android. You can connect to [https://socket-io-chat.now.sh](http://socket.io/blog/native-socket-io-and-android/) using this app.
 
 # <a href="https://www.behance.net/mrh610371211" rel="nofollow">
   <img align="left" alt="Noor Yasser | Youtube " width="21px" src="https://user-images.githubusercontent.com/41232970/102919173-0e8cfe80-4491-11eb-9706-cdebd4f610ff.png" style="max-width:300%; max-height:150%;"> Socket Android Youtube Tutorial </a>
