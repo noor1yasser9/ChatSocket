@@ -15,7 +15,7 @@ This is a simple chat demo for socket.io and Android. You can connect to [https:
 - dataBinding 
 - Coroutines
 
-# ✨ Features Project Servier: 
+# ✨ Features Project Server: 
 - Node js 
 - Express
 
