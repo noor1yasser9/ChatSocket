@@ -7,7 +7,7 @@ This is a simple chat demo for socket.io and Android. You can connect to [https:
 
 # ✨ Features Project Android:
 - 100% Kotlin
-- MVVM architecture
+- MVVM architecture 
 - Android architecture components
 - Navigation Jetpack
 - Room Database
