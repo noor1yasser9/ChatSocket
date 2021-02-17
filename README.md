@@ -13,7 +13,7 @@ This is a simple chat demo for socket.io and Android. You can connect to [https:
 - Room Database
 - Single activity
 - dataBinding 
-- Coroutines
+- Coroutines 
 
 # ✨ Features Project Server: 
 - Node js 
